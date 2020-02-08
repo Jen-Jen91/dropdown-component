@@ -54,3 +54,30 @@
   text-transform: uppercase;
   display: inline;
 }
+
+.arrow-outer {
+  margin-top: -5px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 11px solid rgb(169, 169, 169);
+}
+
+.arrow-inner {
+  position: relative;
+  top: 1px;
+  right: 8px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid white;
+}
+
+.dropdown-list {
+  background-color: white;
+  margin-top: -1px;
+  border: solid 1px rgb(169, 169, 169);
+  min-width: 200px;
+}

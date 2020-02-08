@@ -71,13 +71,22 @@ export default class Dropdown extends Component {
         )}
 
         {this.state.showList && (
-          <ul>
-            {options.map(item => (
-              <li key={item.value} onClick={() => this.handleValueClick(item)}>
-                {item.value}: {item.label}
-              </li>
-            ))}
-          </ul>
+          <>
+            <div class="arrow-outer">
+              <div class="arrow-inner"></div>
+            </div>
+
+            <ul className="dropdown-list">
+              {options.map(item => (
+                <li
+                  key={item.value}
+                  onClick={() => this.handleValueClick(item)}
+                >
+                  {item.value}: {item.label}
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </section>
     );
