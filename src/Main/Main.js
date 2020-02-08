@@ -17,7 +17,6 @@ class Main extends Component {
 
     return (
       <div className="main">
-        <h1>MAIN</h1>
         <Dropdown
           placeholder="Mechanism"
           subtitle="Mechanism of Injury"

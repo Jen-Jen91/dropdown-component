@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import "./Dropdown.css";
 
 export default class Dropdown extends Component {
   constructor(props) {
@@ -43,39 +44,42 @@ export default class Dropdown extends Component {
 
     console.log("VALUES: ", this.state.values);
 
+    // TODO: Hover and click effects
+    // TODO: Click outside list to close
+
     return (
-      <div>
-        <h3>Dropdown</h3>
-
-        <div>
-          <p onClick={this.handleDropdownClick}>
-            {this.state.values.length > 0
-              ? this.props.subtitle
-              : this.props.placeholder}
-          </p>
-
-          {this.state.values.length > 0 && (
-            <ul>
-              {this.state.values.map(item => (
-                <li key={item.value}>{item.label}</li>
-              ))}
-            </ul>
-          )}
-
-          {this.state.showList && (
-            <ul>
-              {options.map(item => (
-                <li
-                  key={item.value}
-                  onClick={() => this.handleValueClick(item)}
-                >
-                  {item.value}: {item.label}
+      <section className="dropdown-container">
+        {this.state.values.length > 0 ? (
+          <div
+            className="display-selected-values"
+            onClick={this.handleDropdownClick}
+          >
+            <ul className="selected-values-container">
+              {this.state.values.map((item, index) => (
+                <li key={item.value} className="selected-value">
+                  {item.label}
+                  {index !== this.state.values.length - 1 && ", "}
                 </li>
               ))}
             </ul>
-          )}
-        </div>
-      </div>
+            <p className="subtitle">{this.props.subtitle}</p>
+          </div>
+        ) : (
+          <div className="display-no-values" onClick={this.handleDropdownClick}>
+            <p className="placeholder">{this.props.placeholder}</p>
+          </div>
+        )}
+
+        {this.state.showList && (
+          <ul>
+            {options.map(item => (
+              <li key={item.value} onClick={() => this.handleValueClick(item)}>
+                {item.value}: {item.label}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     );
   }
 }
