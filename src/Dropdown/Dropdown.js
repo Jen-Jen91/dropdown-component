@@ -72,8 +72,8 @@ export default class Dropdown extends Component {
 
         {this.state.showList && (
           <>
-            <div class="arrow-outer">
-              <div class="arrow-inner"></div>
+            <div className="arrow-outer">
+              <div className="arrow-inner"></div>
             </div>
 
             <ul className="dropdown-list">
@@ -81,8 +81,15 @@ export default class Dropdown extends Component {
                 <li
                   key={item.value}
                   onClick={() => this.handleValueClick(item)}
+                  className={
+                    this.state.values.some(
+                      selectedItem => selectedItem.value === item.value
+                    )
+                      ? "list-item-selected"
+                      : "list-item"
+                  }
                 >
-                  {item.value}: {item.label}
+                  {item.label}
                 </li>
               ))}
             </ul>
