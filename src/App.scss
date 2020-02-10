@@ -1,6 +1,7 @@
-@import "./common/variables.scss";
+@import "./utils/variables.scss";
 
 .app {
   @include flex-center-column;
+
   height: 100vh;
 }

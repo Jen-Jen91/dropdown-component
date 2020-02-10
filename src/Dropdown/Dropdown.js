@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./Dropdown.scss";
+import { checkItemIncluded, sliceText } from "../utils/helpers";
 
 export default class Dropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showList: false,
-      values: []
+      selectedItems: []
     };
 
+    this.sliceLabel = this.sliceLabel.bind(this);
     this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleValueClick = this.handleValueClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
-    this.handleDropdownClick = this.handleDropdownClick.bind(this);
-    this.shortenLabel = this.shortenLabel.bind(this);
+    this.handleDisplayClick = this.handleDisplayClick.bind(this);
+    this.handleListItemClick = this.handleListItemClick.bind(this);
+    this.renderSelectedDisplay = this.renderSelectedDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -25,53 +27,84 @@ export default class Dropdown extends Component {
     document.removeEventListener("mousedown", this.handleOutsideClick);
   }
 
+  // Set wrapper ref as <section> of Dropdown component
   setWrapperRef(node) {
     this.wrapperRef = node;
   }
 
+  // A click outside the wrapper ref closes the dropdown list
   handleOutsideClick(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({ showList: false });
     }
   }
 
-  handleDropdownClick() {
+  // A click on the dropdown display opens/closes the dropdown list
+  handleDisplayClick() {
     this.setState(state => ({
       showList: !state.showList
     }));
   }
 
-  handleValueClick(clickedItem) {
-    let newValues = this.state.values;
+  // A click on a dropdown list item adds it to or removes it from the state
+  handleListItemClick(clickedItem) {
+    let updatedItems = this.state.selectedItems;
 
-    if (newValues.some(item => item.value === clickedItem.value)) {
-      newValues = newValues.filter(item => item.value !== clickedItem.value);
+    if (checkItemIncluded(clickedItem, updatedItems)) {
+      updatedItems = updatedItems.filter(
+        item => item.value !== clickedItem.value
+      );
     } else {
-      newValues.push(clickedItem);
+      updatedItems.push(clickedItem);
     }
 
-    this.setState({ values: newValues });
+    this.setState({ selectedItems: updatedItems });
   }
 
-  shortenLabel(label) {
-    let abbr = "";
+  // Abbreviate the list item label if it's too long and there's more than 1 selected value showing
+  sliceLabel(label) {
+    if (label.length < 7) return label;
 
-    if (this.state.values.length === 1) {
-      if (label.length >= 10) {
-        abbr = label.slice(0, 10);
-      } else {
-        abbr = label;
-      }
+    let abbr = label;
+
+    if (this.state.selectedItems.length === 1) {
+      abbr = sliceText(label, 10);
     } else {
-      abbr = label.slice(0, 3);
+      abbr = sliceText(label, 3);
     }
 
     return abbr;
   }
 
+  renderSelectedDisplay() {
+    return (
+      <div
+        className="display-selected-values"
+        onClick={this.handleDisplayClick}
+      >
+        {this.state.selectedItems.length > 2 ? (
+          <p className="selected-value">
+            {this.state.selectedItems.length + " SELECTED"}
+          </p>
+        ) : (
+          <ul className="selected-values-container">
+            {this.state.selectedItems.map((item, index) => (
+              <li key={item.value} className="selected-value">
+                {this.sliceLabel(item.label)}
+                {index !== this.state.selectedItems.length - 1 && ", "}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <p className="subtitle">{this.props.subtitle}</p>
+      </div>
+    );
+  }
+
   render() {
-    const options = this.props.data
-      ? this.props.data.map((item, index) => {
+    const options = this.props.listData
+      ? this.props.listData.map((item, index) => {
           return {
             label: item,
             value: index
@@ -81,32 +114,10 @@ export default class Dropdown extends Component {
 
     return (
       <section className="dropdown-container" ref={this.setWrapperRef}>
-        {this.state.values.length > 0 ? (
-          <div
-            className="display-selected-values"
-            onClick={this.handleDropdownClick}
-          >
-            {this.state.values.length > 2 ? (
-              <p className="selected-value">
-                {this.state.values.length + " SELECTED"}
-              </p>
-            ) : (
-              <ul className="selected-values-container">
-                {this.state.values.map((item, index) => (
-                  <li key={item.value} className="selected-value">
-                    {item.label.length >= 7
-                      ? this.shortenLabel(item.label)
-                      : item.label}
-                    {index !== this.state.values.length - 1 && ", "}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            <p className="subtitle">{this.props.subtitle}</p>
-          </div>
+        {this.state.selectedItems.length ? (
+          this.renderSelectedDisplay()
         ) : (
-          <div className="display-no-values" onClick={this.handleDropdownClick}>
+          <div className="display-no-values" onClick={this.handleDisplayClick}>
             <p className="placeholder">{this.props.placeholder}</p>
           </div>
         )}
@@ -114,23 +125,21 @@ export default class Dropdown extends Component {
         {this.state.showList && (
           <>
             <div className="arrow-outer">
-              <div className="arrow-inner"></div>
+              <div className="arrow-inner" />
             </div>
 
             <ul className="dropdown-list">
-              {options.map(item => (
+              {options.map(option => (
                 <li
-                  key={item.value}
-                  onClick={() => this.handleValueClick(item)}
+                  key={option.value}
+                  onClick={() => this.handleListItemClick(option)}
                   className={
-                    this.state.values.some(
-                      selectedItem => selectedItem.value === item.value
-                    )
+                    checkItemIncluded(option, this.state.selectedItems)
                       ? "list-item-selected"
                       : "list-item"
                   }
                 >
-                  {item.label}
+                  {option.label}
                 </li>
               ))}
             </ul>
@@ -144,5 +153,5 @@ export default class Dropdown extends Component {
 Dropdown.propTypes = {
   placeholder: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.string).isRequired
+  listData: PropTypes.arrayOf(PropTypes.string).isRequired
 };

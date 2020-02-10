@@ -1,6 +1,6 @@
 import React from "react";
-import "./App.scss";
 import Dropdown from "./Dropdown/Dropdown";
+import "./App.scss";
 
 function App() {
   const mechanismData = [
@@ -15,13 +15,13 @@ function App() {
   ];
 
   return (
-    <div className="app">
+    <main className="app">
       <Dropdown
         placeholder="Mechanism"
         subtitle="Mechanism of Injury"
-        data={mechanismData}
+        listData={mechanismData}
       />
-    </div>
+    </main>
   );
 }
 

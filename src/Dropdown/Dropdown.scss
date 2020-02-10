@@ -1,4 +1,4 @@
-@import "../common/variables.scss";
+@import "../utils/variables.scss";
 
 .dropdown-container {
   @include flex-center-column;
@@ -10,8 +10,9 @@
   @include flex-center-column;
   justify-content: center;
 
-  width: 165px;
+  min-width: 175px;
   height: 50px;
+  padding: 0 5px;
   border: solid 1px $light-blue;
 
   background-color: $blue;
@@ -81,7 +82,7 @@
 .dropdown-list {
   margin-top: -1px;
   padding-left: 0;
-  min-width: 200px;
+  min-width: 250px;
   border: solid 1px $grey;
 
   background-color: $white;
@@ -93,7 +94,8 @@
   @include flex-center-column;
   justify-content: center;
 
-  height: 40px;
+  height: 50px;
+  padding: 0 5px;
   border-bottom: solid 1px $light-grey;
 
   background-color: $white;
