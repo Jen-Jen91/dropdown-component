@@ -87,7 +87,7 @@ export default class Dropdown extends Component {
             {this.state.selectedItems.length + " SELECTED"}
           </p>
         ) : (
-          <ul className="selected-values-container">
+          <ul className="selected-values-list">
             {this.state.selectedItems.map((item, index) => (
               <li key={item.value} className="selected-value">
                 {this.sliceLabel(item.label)}
@@ -113,7 +113,7 @@ export default class Dropdown extends Component {
       : [{ label: "", value: 0 }];
 
     return (
-      <section className="dropdown-container" ref={this.setWrapperRef}>
+      <section className="container" ref={this.setWrapperRef}>
         {this.state.selectedItems.length ? (
           this.renderSelectedDisplay()
         ) : (
@@ -128,15 +128,15 @@ export default class Dropdown extends Component {
               <div className="arrow-inner" />
             </div>
 
-            <ul className="dropdown-list">
+            <ul className="list">
               {options.map(option => (
                 <li
                   key={option.value}
                   onClick={() => this.handleListItemClick(option)}
                   className={
                     checkItemIncluded(option, this.state.selectedItems)
-                      ? "list-item-selected"
-                      : "list-item"
+                      ? "list-option-selected"
+                      : "list-option"
                   }
                 >
                   {option.label}

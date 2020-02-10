@@ -16,8 +16,9 @@ $bold: 700;
 $extra-bold: 800;
 
 // MIXINS:
-@mixin flex-center-column() {
+@mixin flex-center-column($justify) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: $justify;
 }
