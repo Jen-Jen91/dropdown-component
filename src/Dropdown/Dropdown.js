@@ -44,7 +44,6 @@ export default class Dropdown extends Component {
 
     console.log("VALUES: ", this.state.values);
 
-    // TODO: Hover and click effects
     // TODO: Click outside list to close
 
     return (

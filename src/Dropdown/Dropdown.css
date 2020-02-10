@@ -94,10 +94,19 @@
   text-transform: uppercase;
   font-weight: 700;
   color: rgb(36, 33, 34);
+  cursor: pointer;
 }
 
 .list-item:last-child {
   border-bottom: 0;
+}
+
+.list-item:hover {
+  background-color: rgb(220, 220, 220);
+}
+
+.list-item:active {
+  background-color: rgb(20, 142, 194);
 }
 
 .list-item-selected {
@@ -110,4 +119,17 @@
   text-transform: uppercase;
   font-weight: 700;
   color: rgb(254, 254, 254);
+  cursor: pointer;
+}
+
+.list-item-selected:last-child {
+  border-bottom: 0;
+}
+
+.list-item-selected:hover {
+  background-color: rgb(141, 202, 228);
+}
+
+.list-item-selected:active {
+  background-color: rgb(22, 158, 217);
 }
