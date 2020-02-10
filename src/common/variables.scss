@@ -1,0 +1,23 @@
+// COLORS:
+$background: rgb(235, 235, 235);
+
+$light-text: rgb(254, 254, 254);
+$dark-text: rgb(36, 33, 34);
+
+$white: rgb(255, 255, 255);
+$grey: rgb(169, 169, 169);
+$light-grey: rgb(220, 220, 220);
+$blue: rgb(22, 158, 217);
+$darker-blue: rgb(20, 142, 194);
+$light-blue: rgb(141, 202, 228);
+
+// FONT:
+$bold: 700;
+$extra-bold: 800;
+
+// MIXINS:
+@mixin flex-center-column() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
