@@ -54,8 +54,19 @@ export default class Dropdown extends Component {
   }
 
   shortenLabel(label) {
-    const abbr = label.slice(0, 3);
-    return abbr + "...";
+    let abbr = "";
+
+    if (this.state.values.length === 1) {
+      if (label.length >= 10) {
+        abbr = label.slice(0, 10);
+      } else {
+        abbr = label;
+      }
+    } else {
+      abbr = label.slice(0, 3);
+    }
+
+    return abbr;
   }
 
   render() {
