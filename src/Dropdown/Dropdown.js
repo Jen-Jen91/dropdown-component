@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import "./Dropdown.css";
+import "./Dropdown.scss";
 
 export default class Dropdown extends Component {
   constructor(props) {
