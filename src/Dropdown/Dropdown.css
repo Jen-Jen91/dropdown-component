@@ -6,7 +6,7 @@
 
 .display-selected-values {
   background-color: rgb(22, 158, 217);
-  min-width: 165px;
+  width: 165px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@
 
 .display-no-values {
   background-color: white;
-  min-width: 165px;
+  width: 165px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@
 .subtitle {
   font-size: 0.7em;
   color: rgb(254, 254, 254);
-  margin: 0;
+  margin: 2px 0 0 0;
 }
 
 .placeholder {
@@ -43,7 +43,7 @@
 .selected-values-container {
   list-style: none;
   padding-left: 0;
-  margin: 0 0 2px 0;
+  margin: 0;
 }
 
 .selected-value {
@@ -51,6 +51,7 @@
   font-weight: 700;
   text-transform: uppercase;
   display: inline;
+  margin: 0;
 }
 
 .arrow-outer {

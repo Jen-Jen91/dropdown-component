@@ -14,6 +14,7 @@ export default class Dropdown extends Component {
     this.handleValueClick = this.handleValueClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.handleDropdownClick = this.handleDropdownClick.bind(this);
+    this.shortenLabel = this.shortenLabel.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +53,11 @@ export default class Dropdown extends Component {
     this.setState({ values: newValues });
   }
 
+  shortenLabel(label) {
+    const abbr = label.slice(0, 3);
+    return abbr + "...";
+  }
+
   render() {
     const options = this.props.data
       ? this.props.data.map((item, index) => {
@@ -69,14 +75,23 @@ export default class Dropdown extends Component {
             className="display-selected-values"
             onClick={this.handleDropdownClick}
           >
-            <ul className="selected-values-container">
-              {this.state.values.map((item, index) => (
-                <li key={item.value} className="selected-value">
-                  {item.label}
-                  {index !== this.state.values.length - 1 && ", "}
-                </li>
-              ))}
-            </ul>
+            {this.state.values.length > 2 ? (
+              <p className="selected-value">
+                {this.state.values.length + " SELECTED"}
+              </p>
+            ) : (
+              <ul className="selected-values-container">
+                {this.state.values.map((item, index) => (
+                  <li key={item.value} className="selected-value">
+                    {item.label.length >= 7
+                      ? this.shortenLabel(item.label)
+                      : item.label}
+                    {index !== this.state.values.length - 1 && ", "}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             <p className="subtitle">{this.props.subtitle}</p>
           </div>
         ) : (
