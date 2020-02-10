@@ -10,8 +10,28 @@ export default class Dropdown extends Component {
       values: []
     };
 
-    this.handleDropdownClick = this.handleDropdownClick.bind(this);
+    this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleValueClick = this.handleValueClick.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.handleDropdownClick = this.handleDropdownClick.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleOutsideClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleOutsideClick);
+  }
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleOutsideClick(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({ showList: false });
+    }
   }
 
   handleDropdownClick() {
@@ -42,12 +62,8 @@ export default class Dropdown extends Component {
         })
       : [{ label: "", value: 0 }];
 
-    console.log("VALUES: ", this.state.values);
-
-    // TODO: Click outside list to close
-
     return (
-      <section className="dropdown-container">
+      <section className="dropdown-container" ref={this.setWrapperRef}>
         {this.state.values.length > 0 ? (
           <div
             className="display-selected-values"
