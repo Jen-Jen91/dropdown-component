@@ -4,7 +4,7 @@ This project contains a custom dropdown component for selecting single and multi
 
 ### `npm install`
 
-Installs the necessary dependencies/packages in the local node_modules folder, such as PropTypes.
+Installs the necessary dependencies/packages in the local node_modules folder, such as PropTypes and SASS.
 
 ### `npm start`
 

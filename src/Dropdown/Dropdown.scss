@@ -20,6 +20,14 @@
 
   background-color: $blue;
   cursor: pointer;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+
+  &:active {
+    background-color: $darker-blue;
+  }
 }
 
 .display-no-values {
@@ -28,6 +36,14 @@
   border: solid 1px $grey;
 
   background-color: $white;
+
+  &:hover {
+    background-color: $light-grey;
+  }
+
+  &:active {
+    background-color: $grey;
+  }
 }
 
 .subtitle {

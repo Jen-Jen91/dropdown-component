@@ -76,6 +76,7 @@ export default class Dropdown extends Component {
     return abbr;
   }
 
+  // Render the display of selected values (show number selected if more than 2)
   renderSelectedDisplay() {
     return (
       <div
@@ -102,6 +103,7 @@ export default class Dropdown extends Component {
     );
   }
 
+  // MAIN RENDER FUNCTION
   render() {
     const options = this.props.listData
       ? this.props.listData.map((item, index) => {
